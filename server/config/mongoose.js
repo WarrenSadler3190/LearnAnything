@@ -11,6 +11,23 @@ module.exports = function(config){
     console.log('learnanything db is open');
   });
 
+
+  var userSchema = mongoose.Schema({
+      firstName:String,
+      lastName:String,
+      userName:String
+  });
+
+  var User = mongoose.model('User',userSchema);
+
+  User.find({}).exec(function(err, collection){
+    if(collection.length === 0){
+      User.create({firstName:'Warren',lastName:'Sadler',userName:'WarrenSadler3190'});
+      User.create({firstName:'Jessie',lastName:'Wooten',userName:'Kckflp'});
+      User.create({firstName:'James',lastName:'Downs',userName:'KingDowns'});
+    }
+  })
+
 }
 
 
