@@ -30,7 +30,12 @@ app.use(stylus.middleware(
 app.use(express.static(__dirname + '/public'));
 
 //Mongoose and MongoDB
-mongoose.connect('mongodb://localhost/learnanything');
+if(env === "development"){
+  mongoose.connect('mongodb://localhost/learnanything');
+}else{
+  mongoose.connect('mongodb://wsadler:learnanything@ds061189.mongolab.com:61189/learnanything');
+}
+
 var db = mongoose.connection;
 db.on('error',console.error.bind(console,'connection error...'));
 db.once('open',function(){
