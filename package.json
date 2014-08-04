@@ -1,0 +1,15 @@
+{
+  "name": "LearnAnything",
+  "version": "0.0.0",
+  "description": "A Site to host my YouTube Tutorials and Musings",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Warren Sadler",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.7.2",
+    "jade": "^1.5.0"
+  }
+}
