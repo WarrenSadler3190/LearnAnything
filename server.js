@@ -1,7 +1,8 @@
 var express = require('express')
     ,stylus = require('stylus')
     ,logger = require('morgan')
-    ,bodyparser = require('body-parser');
+    ,bodyparser = require('body-parser')
+    ,mongoose = require('mongoose');
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
@@ -25,6 +26,14 @@ app.use(stylus.middleware(
   }
 ));
 app.use(express.static(__dirname + '/public'));
+
+mongoose.connect('mongodb://localhost/learnanything');
+var db = mongoose.connection;
+db.on('error',console.error.bind(console,'connection error...'));
+db.once('open',function(){
+  console.log('learnanything db is open');
+})
+
 app.get('/partials/:partialPath',function(req,res){
   res.render('partials/' + req.params.partialPath);
 })
