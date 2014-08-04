@@ -1,59 +1,16 @@
 var express = require('express')
-    ,stylus = require('stylus')
-    ,logger = require('morgan')
-    ,bodyparser = require('body-parser')
     ,mongoose = require('mongoose');
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
 var app = express();
 
-function compile(str,path) {
-  return stylus(str).set('filename',path);
-}
+var config = require('./server/config/config')[env];
 
+require('./server/config/express')(app, config);
+require('./server/config/mongoose')(config);
+require('./server/config/routes')(app);
 
-//View Engine and Static Dirs
-app.set('views', __dirname + '/server/views');
-app.set('view engine','jade');
-app.use(logger('dev'));
-app.use(bodyparser.urlencoded({
-  extended:true
-}));
-app.use(bodyparser.json());
-app.use(stylus.middleware(
-  {
-    src: __dirname + '/public',
-    compile: compile
-  }
-));
-app.use(express.static(__dirname + '/public'));
-
-//Mongoose and MongoDB
-if(env === "development"){
-  mongoose.connect('mongodb://localhost/learnanything');
-}else{
-  mongoose.connect('mongodb://wsadler:learnanything@ds061189.mongolab.com:61189/learnanything');
-}
-
-var db = mongoose.connection;
-db.on('error',console.error.bind(console,'connection error...'));
-db.once('open',function(){
-  console.log('learnanything db is open');
-});
-
-
-
-//Routes
-app.get('/partials/:partialPath',function(req,res){
-  res.render('partials/' + req.params.partialPath);
-})
-
-app.get('*',function(req,res){
-  res.render('index');
-});
-
-//Port Config
 var port = process.env.PORT || 3030;
-app.listen(port);
-console.log('Listening on port: ' +  port + '...');
+app.listen(config.port);
+console.log('Listening on port: ' +  config.port + '...');

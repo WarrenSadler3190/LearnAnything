@@ -5,3 +5,9 @@ body {
   text-align: center;
   color: #cecece;
 }
+.navbar-form .form-group {
+  margin-left: 10px;
+}
+.navbar-form button {
+  margin-left: 10px;
+}
