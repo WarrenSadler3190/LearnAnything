@@ -1,4 +1,5 @@
 .panel.panel-primary
   .panel-heading.text-center Featured Courses
-  .panel-body.text-center.
-    Sample Text
+  .panel-body.text-center
+    .row(ng-repeat="course in courses | filter:{featured:true}")
+      .col-xs-12 {{course.name}}
