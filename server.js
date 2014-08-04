@@ -42,15 +42,6 @@ db.once('open',function(){
   console.log('learnanything db is open');
 });
 
-//Test Message Schema
-var messageSchema = mongoose.Schema({
-  message:String
-});
-var Message = mongoose.model('Message',messageSchema);
-var mongoMessage;
-Message.findOne().exec(function(err,doc){
-  mongoMessage = doc.message;
-});
 
 
 //Routes
@@ -59,7 +50,7 @@ app.get('/partials/:partialPath',function(req,res){
 })
 
 app.get('*',function(req,res){
-  res.render('index',{mongoMessage:mongoMessage});
+  res.render('index');
 });
 
 //Port Config

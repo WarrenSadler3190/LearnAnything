@@ -1,6 +1,15 @@
 extends ../includes/layout
 
 block main-content
+  nav.navbar.navbar-default.navbar-fixed-top
+    .navbar-header
+      a(href="/").navbar-brand LearnAnything
+    .navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li.active
+          a(href="/") Home
   section.content
     div(ng-view)
-  h2= mongoMessage
+
+  nav(role="navigation").navbar.navbar-default.navbar-fixed-bottom
+    h6 &copy; 2014 LearnAnything.com LLC
